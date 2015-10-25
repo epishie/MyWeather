@@ -1,0 +1,63 @@
+{
+    "data" : {
+        "request" : [
+                     {
+                     "query" : "London, United Kingdom",
+                     "type" : "City"
+                     }
+                     ],
+        "current_condition" : [
+                               {
+                               "pressure" : "1022",
+                               "temp_C" : "12",
+                               "weatherCode" : "116",
+                               "weatherIconUrl" : [
+                                                   {
+                                                   "value" : "http:\/\/cdn.worldweatheronline.net\/images\/wsymbols01_png_64\/wsymbol_0002_sunny_intervals.png"
+                                                   }
+                                                   ],
+                               "humidity" : "71",
+                               "temp_F" : "54",
+                               "cloudcover" : "75",
+                               "observation_time" : "07:00 AM",
+                               "visibility" : "10",
+                               "weatherDesc" : [
+                                                {
+                                                "value" : "Partly Cloudy"
+                                                }
+                                                ],
+                               "precipMM" : "0.0",
+                               "winddirDegree" : "210",
+                               "windspeedMiles" : "4",
+                               "winddir16Point" : "SSW",
+                               "windspeedKmph" : "7"
+                               }
+                               ],
+        "weather" : [
+                     {
+                     "windspeedKmph" : "17",
+                     "weatherCode" : "119",
+                     "tempMaxC" : "14",
+                     "tempMinC" : "9",
+                     "tempMaxF" : "58",
+                     "winddirection" : "SSW",
+                     "date" : "2015-10-23",
+                     "weatherDesc" : [
+                                      {
+                                      "value" : "Cloudy"
+                                      }
+                                      ],
+                     "precipMM" : "0.0",
+                     "tempMinF" : "48",
+                     "winddirDegree" : "206",
+                     "windspeedMiles" : "11",
+                     "weatherIconUrl" : [
+                                         {
+                                         "value" : "http:\/\/cdn.worldweatheronline.net\/images\/wsymbols01_png_64\/wsymbol_0003_white_cloud.png"
+                                         }
+                                         ],
+                     "winddir16Point" : "SSW"
+                     }
+                     ]
+    }
+}

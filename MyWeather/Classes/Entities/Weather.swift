@@ -10,10 +10,18 @@ import Foundation
 
 struct Weather {
     var city: String
+    var icon: String
+    var observationTime: String
+    var humidity: Int
+    var description: String
 }
 
 extension Weather: Equatable {}
 
 func ==(lhs: Weather, rhs: Weather) -> Bool {
-    return lhs.city == rhs.city
+    return lhs.city == rhs.city &&
+        lhs.icon == rhs.icon &&
+        lhs.observationTime == rhs.observationTime &&
+        lhs.humidity == rhs.humidity &&
+        lhs.description == rhs.description
 }

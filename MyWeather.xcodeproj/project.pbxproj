@@ -25,6 +25,10 @@
 		2DC7CB871BDD0CF900CCF7C4 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2DC7CB801BDD0CE700CCF7C4 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2DC7CB881BDD0CF900CCF7C4 /* OHHTTPStubs.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2DC7CB811BDD0CE700CCF7C4 /* OHHTTPStubs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2DC7CB891BDD0CF900CCF7C4 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2DC7CB821BDD0CE700CCF7C4 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2DC7CB8B1BDD0D9A00CCF7C4 /* WWOWeatherSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC7CB8A1BDD0D9A00CCF7C4 /* WWOWeatherSearchService.swift */; settings = {ASSET_TAGS = (); }; };
+		2DC7CB8E1BDD0DDC00CCF7C4 /* WWOWeatherSearchServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC7CB8D1BDD0DDC00CCF7C4 /* WWOWeatherSearchServiceSpec.swift */; settings = {ASSET_TAGS = (); }; };
+		2DC7CB921BDD1A8C00CCF7C4 /* london.json in Resources */ = {isa = PBXBuildFile; fileRef = 2DC7CB901BDD1A8C00CCF7C4 /* london.json */; settings = {ASSET_TAGS = (); }; };
+		2DC7CB931BDD1A8C00CCF7C4 /* notFound.json in Resources */ = {isa = PBXBuildFile; fileRef = 2DC7CB911BDD1A8C00CCF7C4 /* notFound.json */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +94,10 @@
 		2DC7CB801BDD0CE700CCF7C4 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		2DC7CB811BDD0CE700CCF7C4 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		2DC7CB821BDD0CE700CCF7C4 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		2DC7CB8A1BDD0D9A00CCF7C4 /* WWOWeatherSearchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WWOWeatherSearchService.swift; sourceTree = "<group>"; };
+		2DC7CB8D1BDD0DDC00CCF7C4 /* WWOWeatherSearchServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WWOWeatherSearchServiceSpec.swift; sourceTree = "<group>"; };
+		2DC7CB901BDD1A8C00CCF7C4 /* london.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = london.json; sourceTree = "<group>"; };
+		2DC7CB911BDD1A8C00CCF7C4 /* notFound.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notFound.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				2DA009221BDD083900D67B68 /* Classes */,
+				2DC7CB8F1BDD1A7200CCF7C4 /* Resources */,
 				2DA008FD1BDD07DF00D67B68 /* Info.plist */,
 			);
 			path = MyWeatherTests;
@@ -202,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				2DA0091B1BDD082300D67B68 /* WeatherSearchService.swift */,
+				2DC7CB8A1BDD0D9A00CCF7C4 /* WWOWeatherSearchService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -210,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				2DA009231BDD083900D67B68 /* Interactors */,
+				2DC7CB8C1BDD0DA100CCF7C4 /* Services */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -233,6 +244,23 @@
 				2DC7CB771BDD0CB600CCF7C4 /* Swinject.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2DC7CB8C1BDD0DA100CCF7C4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2DC7CB8D1BDD0DDC00CCF7C4 /* WWOWeatherSearchServiceSpec.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		2DC7CB8F1BDD1A7200CCF7C4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2DC7CB901BDD1A8C00CCF7C4 /* london.json */,
+				2DC7CB911BDD1A8C00CCF7C4 /* notFound.json */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -350,6 +378,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DC7CB931BDD1A8C00CCF7C4 /* notFound.json in Resources */,
+				2DC7CB921BDD1A8C00CCF7C4 /* london.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +400,7 @@
 				2DA009201BDD082300D67B68 /* WeatherSearchService.swift in Sources */,
 				2DA0091E1BDD082300D67B68 /* Weather.swift in Sources */,
 				2DA0091F1BDD082300D67B68 /* WeatherSearchUseCase.swift in Sources */,
+				2DC7CB8B1BDD0D9A00CCF7C4 /* WWOWeatherSearchService.swift in Sources */,
 				2DA0091D1BDD082300D67B68 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -379,6 +410,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DA009261BDD083900D67B68 /* WeatherSearchUseCaseSpec.swift in Sources */,
+				2DC7CB8E1BDD0DDC00CCF7C4 /* WWOWeatherSearchServiceSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

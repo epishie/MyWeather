@@ -66,7 +66,7 @@ class WeatherSearchUseCaseSpec: QuickSpec {
                     var completionHandler: ((Weather?, WeatherSearchError?) -> Void)?
                     
                     func searchForWeather(city: String, completionHandler: (Weather?, WeatherSearchError?) -> Void) {
-                        let weather = Weather(city: city)
+                        let weather = Weather(city: city, icon: "icon_path", observationTime: "1:00 AM", humidity: 71, description: "Sunny")
                         completionHandler(weather, nil)
                         searchForWeatherIsCalled = true
                         self.city = city
@@ -85,7 +85,7 @@ class WeatherSearchUseCaseSpec: QuickSpec {
                 expect(service.city).to(equal("London"))
                 expect(service.completionHandler).toNot(beNil())
                 expect(output.searchDidFoundWeatherIsCalled).to(beTrue())
-                expect(output.weather).to(equal(Weather(city: "London")))
+                expect(output.weather).to(equal(Weather(city: "London", icon: "icon_path", observationTime: "1:00 AM", humidity: 71, description: "Sunny")))
             }
         }
     }
