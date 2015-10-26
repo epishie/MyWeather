@@ -14,6 +14,13 @@ import Nimble
 class WeatheDetailUseCaseSpec: QuickSpec {
     
     override func spec() {
+        class MockOutput: WeatherDetailUseCaseOutput {
+            var weatherDetailIsAvaiableIsCalled = false
+            
+            func weatherDetailIsAvailale(weather: Weather) {
+                weatherDetailIsAvaiableIsCalled = true
+            }
+        }
         describe("getAvaiableWeatherDetail()") {
             it("should return a weather output on success") {
                 // GIVEN
@@ -27,13 +34,6 @@ class WeatheDetailUseCaseSpec: QuickSpec {
                     func searchForWeather(city: String, completionHandler: (Weather?, WeatherSearchError?) -> Void) {
                     }
                 }
-                class MockOutput: WeatherDetailUseCaseOutput {
-                    var weatherDetailIsAvaiableIsCalled = false
-                    
-                    func weatherDetailIsAvailale(weather: Weather) {
-                        weatherDetailIsAvaiableIsCalled = true
-                    }
-                }
                 let output = MockOutput()
                 let service = MockService()
                 let useCase = WeatherDetailUseCase(weatherSearchService: service)
@@ -45,9 +45,29 @@ class WeatheDetailUseCaseSpec: QuickSpec {
                 // THEN
                 expect(output.weatherDetailIsAvaiableIsCalled).to(beTrue())
             }
+            it("does nothing on failure") {
+                // GIVEN
+                class MockService: WeatherSearchService {
+                    var lastWeather: Weather?
+                    
+                    func searchForWeather(city: String, completionHandler: (Weather?, WeatherSearchError?) -> Void) {
+                        completionHandler(nil, WeatherSearchError.SearchError)
+                    }
+                }
+                let output = MockOutput()
+                let service = MockService()
+                let useCase = WeatherDetailUseCase(weatherSearchService: service)
+                useCase.output = output
+                
+                // WHEN
+                useCase.getAvailableWeatherDetail()
+                
+                // THEN
+                expect(output.weatherDetailIsAvaiableIsCalled).to(beFalse())
+            }
         }
         describe("refresh()") {
-            it("should return a weather output on success") {
+            it("returns a weather output on success") {
                 // GIVEN
                 class MockService: WeatherSearchService {
                     var lastWeather: Weather?
@@ -63,11 +83,28 @@ class WeatheDetailUseCaseSpec: QuickSpec {
                         searchForWeatherIsCalled = true
                     }
                 }
-                class MockOutput: WeatherDetailUseCaseOutput {
-                    var weatherDetailIsAvaiableIsCalled = false
+                let output = MockOutput()
+                let service = MockService()
+                let useCase = WeatherDetailUseCase(weatherSearchService: service)
+                useCase.output = output
+                
+                // WHEN
+                useCase.refresh()
+                
+                // THEN
+                expect(output.weatherDetailIsAvaiableIsCalled).to(beTrue())
+            }
+            it("does nothing on failure") {
+                // GIVEN
+                class MockService: WeatherSearchService {
+                    var lastWeather: Weather?
                     
-                    func weatherDetailIsAvailale(weather: Weather) {
-                        weatherDetailIsAvaiableIsCalled = true
+                    init() {
+                        lastWeather = Weather(city: "London", icon: nil, observationTime: "1:00 AM", humidity: 71, description: "Sunny")
+                    }
+                    
+                    func searchForWeather(city: String, completionHandler: (Weather?, WeatherSearchError?) -> Void) {
+                        completionHandler(nil, WeatherSearchError.SearchError)
                     }
                 }
                 let output = MockOutput()
@@ -79,7 +116,7 @@ class WeatheDetailUseCaseSpec: QuickSpec {
                 useCase.refresh()
                 
                 // THEN
-                expect(output.weatherDetailIsAvaiableIsCalled).to(beTrue())
+                expect(output.weatherDetailIsAvaiableIsCalled).to(beFalse())
             }
         }
     }

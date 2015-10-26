@@ -6,5 +6,7 @@
   Copyright © 2015 Epishie. All rights reserved.
 */
 
+"MyWeather" = "MyWeather";
+"Dismiss" = "Dismiss";
 "Search Error Message" = "Unable to find any matching weather location to the query submitted!";
 "Network Error Message" = "Unable to connect to the weather service!";
