@@ -15,6 +15,7 @@ class WWOWeatherSearchService: WeatherSearchService {
     let apiHost = "http://api.worldweatheronline.com"
     let apiPath = "/free/v1/weather.ashx"
     let apiKey = "vzkjnx2j5f88vyn5dhvvqkzc"
+    var lastWeather: Weather?
     
     func searchForWeather(city: String, completionHandler: (Weather?, WeatherSearchError?) -> Void) {
         var parameters = [String: String]()
@@ -33,14 +34,17 @@ class WWOWeatherSearchService: WeatherSearchService {
                     return
                 }
                 let city = data["request"][0]["query"].stringValue
-                let icon = data["current_condition"][0]["weatherIconUrl"][0]["value"].stringValue
+                let iconUrl = data["current_condition"][0]["weatherIconUrl"][0]["value"].stringValue
+                let icon = NSData(contentsOfURL: NSURL(string: iconUrl)!)
                 let observationTime = data["current_condition"][0]["observation_time"].stringValue
                 let humidity = data["current_condition"][0]["humidity"].intValue
                 let description = data["current_condition"][0]["weatherDesc"][0]["value"].stringValue
                 let weather = Weather(city: city, icon: icon, observationTime: observationTime, humidity: humidity, description: description)
                 completionHandler(weather, nil)
+                self.lastWeather = weather
             case .Failure:
                 completionHandler(nil, WeatherSearchError.NetworkError)
+                self.lastWeather = nil
             }
         }
     }

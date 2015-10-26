@@ -9,6 +9,7 @@
 import Foundation
 
 protocol WeatherSearchService: class {
+    var lastWeather: Weather? { get }
     
     func searchForWeather(city: String, completionHandler: (Weather?, WeatherSearchError?) -> Void)
 }

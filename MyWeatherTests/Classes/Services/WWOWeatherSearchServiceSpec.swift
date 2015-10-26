@@ -66,8 +66,10 @@ class WWOWeatherSearchServiceSpec: QuickSpec {
                 }
                 
                 // THEN
-                expect(currentWeather).toEventually(equal(Weather(city: "London, United Kingdom", icon: "http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0002_sunny_intervals.png", observationTime: "07:00 AM", humidity: 71, description: "Partly Cloudy")))
+                let icon = NSData(contentsOfURL: NSURL(string: "http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0002_sunny_intervals.png")!)
+                expect(currentWeather).toEventually(equal(Weather(city: "London, United Kingdom", icon: icon, observationTime: "07:00 AM", humidity: 71, description: "Partly Cloudy")))
                 expect(searchError).toEventually(beNil())
+                expect(service.lastWeather).toEventually(equal(currentWeather))
             }
             it("should call completion handler with error if city is not found") {
                 // GIVEN
@@ -90,6 +92,7 @@ class WWOWeatherSearchServiceSpec: QuickSpec {
                 // THEN
                 expect(currentWeather).toEventually(beNil())
                 expect(searchError).toEventually(equal(WeatherSearchError.SearchError))
+                expect(service.lastWeather).toEventually(beNil())
             }
             it("should call completion handler with error network failure") {
                 // GIVEN
@@ -113,6 +116,7 @@ class WWOWeatherSearchServiceSpec: QuickSpec {
                 // THEN
                 expect(currentWeather).toEventually(beNil())
                 expect(searchError).toEventually(equal(WeatherSearchError.NetworkError))
+                expect(service.lastWeather).toEventually(beNil())
             }
         }
     }

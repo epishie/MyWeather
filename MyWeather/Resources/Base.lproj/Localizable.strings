@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  MyWeather
+
+  Created by Seph Iturralde on 25/10/2015.
+  Copyright © 2015 Epishie. All rights reserved.
+*/
+
+"Search Error Message" = "Unable to find any matching weather location to the query submitted!";
+"Network Error Message" = "Unable to connect to the weather service!";

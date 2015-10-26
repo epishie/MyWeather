@@ -10,7 +10,7 @@ import Foundation
 
 struct Weather {
     var city: String
-    var icon: String
+    var icon: NSData?
     var observationTime: String
     var humidity: Int
     var description: String
