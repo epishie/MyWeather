@@ -11,6 +11,7 @@ import Foundation
 protocol WeatherDetailView: class {
     
     func showWeather(weather: (String, NSData?, String, Int, String))
+    func showErrorMessage(message: String)
 }
 
 protocol WeatherDetailEventHandler: class {

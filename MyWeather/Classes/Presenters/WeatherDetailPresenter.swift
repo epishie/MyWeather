@@ -27,4 +27,13 @@ class WeatherDetailPresenter: WeatherDetailUseCaseOutput, WeatherDetailEventHand
     func weatherDetailIsAvailale(weather: Weather) {
         view?.showWeather((weather.city, weather.icon, weather.observationTime, weather.humidity, weather.description))
     }
+    
+    func weatherDetailIsNotAvailable(error: WeatherSearchError) {
+        switch error {
+        case .SearchError:
+            view?.showErrorMessage(NSLocalizedString("Search Error Message", comment: ""))
+        case .NetworkError:
+            view?.showErrorMessage(NSLocalizedString("Network Error Message", comment: ""))
+        }
+    }
 }

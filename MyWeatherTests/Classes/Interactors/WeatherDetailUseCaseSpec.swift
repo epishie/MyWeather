@@ -15,10 +15,19 @@ class WeatheDetailUseCaseSpec: QuickSpec {
     
     override func spec() {
         class MockOutput: WeatherDetailUseCaseOutput {
+            var weather: Weather?
             var weatherDetailIsAvaiableIsCalled = false
+            var error: WeatherSearchError?
+            var weatherDetailIsNotAvailableIsCalled = false
             
             func weatherDetailIsAvailale(weather: Weather) {
                 weatherDetailIsAvaiableIsCalled = true
+                self.weather = weather
+            }
+            
+            func weatherDetailIsNotAvailable(error: WeatherSearchError) {
+                weatherDetailIsNotAvailableIsCalled = true
+                self.error = error
             }
         }
         describe("getAvaiableWeatherDetail()") {
@@ -44,6 +53,7 @@ class WeatheDetailUseCaseSpec: QuickSpec {
                 
                 // THEN
                 expect(output.weatherDetailIsAvaiableIsCalled).to(beTrue())
+                expect(output.weather).to(equal(service.lastWeather))
             }
             it("does nothing on failure") {
                 // GIVEN
@@ -72,13 +82,14 @@ class WeatheDetailUseCaseSpec: QuickSpec {
                 class MockService: WeatherSearchService {
                     var lastWeather: Weather?
                     var searchForWeatherIsCalled = false
+                    var newWeather: Weather?
                     
                     init() {
                         lastWeather = Weather(city: "London", icon: nil, observationTime: "1:00 AM", humidity: 71, description: "Sunny")
                     }
                     
                     func searchForWeather(city: String, completionHandler: (Weather?, WeatherSearchError?) -> Void) {
-                        let newWeather = Weather(city: "London", icon: nil, observationTime: "2:00 AM", humidity: 71, description: "Sunny")
+                        newWeather = Weather(city: "London", icon: nil, observationTime: "2:00 AM", humidity: 71, description: "Sunny")
                         completionHandler(newWeather, nil)
                         searchForWeatherIsCalled = true
                     }
@@ -93,8 +104,9 @@ class WeatheDetailUseCaseSpec: QuickSpec {
                 
                 // THEN
                 expect(output.weatherDetailIsAvaiableIsCalled).to(beTrue())
+                expect(output.weather).to(equal(service.newWeather))
             }
-            it("does nothing on failure") {
+            it("returns an error output on failure") {
                 // GIVEN
                 class MockService: WeatherSearchService {
                     var lastWeather: Weather?
@@ -116,7 +128,8 @@ class WeatheDetailUseCaseSpec: QuickSpec {
                 useCase.refresh()
                 
                 // THEN
-                expect(output.weatherDetailIsAvaiableIsCalled).to(beFalse())
+                expect(output.weatherDetailIsNotAvailableIsCalled).to(beTrue())
+                expect(output.error).to(equal(WeatherSearchError.SearchError))
             }
         }
     }

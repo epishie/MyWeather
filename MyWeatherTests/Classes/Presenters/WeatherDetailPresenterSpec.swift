@@ -14,6 +14,22 @@ import Nimble
 class WeatherDetailPresenterSpec: QuickSpec {
     
     override func spec() {
+        class MockView: WeatherDetailView {
+            var weather: (String, NSData?, String, Int, String)?
+            var showWeatherIsCalled = false
+            var message: String!
+            var showErrorMessageIsCalled = false
+            
+            func showWeather(weather: (String, NSData?, String, Int, String)) {
+                showWeatherIsCalled = true
+                self.weather = weather
+            }
+            
+            func showErrorMessage(message: String) {
+                showErrorMessageIsCalled = true
+                self.message = message
+            }
+        }
         class MockUseCase: WeatherDetailUseCase {
             var getAvailableWeatherIsCalled = false
             var refreshIsCalled = false
@@ -56,16 +72,8 @@ class WeatherDetailPresenterSpec: QuickSpec {
             }
         }
         describe("weatherDetailIsAvailable()") {
-            it("should tell the view to show the weather") {
+            it("tells the view to show the weather") {
                 // GIVEN
-                class MockView: WeatherDetailView {
-                    var weather: (String, NSData?, String, Int, String)?
-                    var showWeatherIsCalled = false
-                    private func showWeather(weather: (String, NSData?, String, Int, String)) {
-                        showWeatherIsCalled = true
-                        self.weather = weather
-                    }
-                }
                 let view = MockView()
                 let presenter = WeatherDetailPresenter(useCase: MockUseCase())
                 presenter.view = view
@@ -81,6 +89,34 @@ class WeatherDetailPresenterSpec: QuickSpec {
                 expect(view.weather?.2).to(equal(weather.observationTime))
                 expect(view.weather?.3).to(equal(weather.humidity))
                 expect(view.weather?.4).to(equal(weather.description))
+            }
+        }
+        describe("weatherDetailIsAvailable()") {
+            it("tells the view to show the error message on Network error") {
+                // GIVEN
+                let view = MockView()
+                let presenter = WeatherDetailPresenter(useCase: MockUseCase())
+                presenter.view = view
+                
+                // WHEN
+                presenter.weatherDetailIsNotAvailable(WeatherSearchError.NetworkError)
+                
+                // THEN
+                expect(view.showErrorMessageIsCalled).to(beTrue())
+                expect(view.message).to(equal(NSLocalizedString("Network Error Message", comment: "")))
+            }
+            it("tells the view to show the error message on Search error") {
+                // GIVEN
+                let view = MockView()
+                let presenter = WeatherDetailPresenter(useCase: MockUseCase())
+                presenter.view = view
+                
+                // WHEN
+                presenter.weatherDetailIsNotAvailable(WeatherSearchError.SearchError)
+                
+                // THEN
+                expect(view.showErrorMessageIsCalled).to(beTrue())
+                expect(view.message).to(equal(NSLocalizedString("Search Error Message", comment: "")))
             }
         }
     }

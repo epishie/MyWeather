@@ -83,6 +83,7 @@ extension WeatherSearchViewController: WeatherSearchView {
         let alertController = UIAlertController(title: NSLocalizedString("MyWeather", comment: ""), message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: NSLocalizedString("Dismiss", comment: ""), style: UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alertController, animated: true, completion: nil)
+        activityIndicator.stopAnimating()
     }
     
     func showSearchHistory(history: [String]) {

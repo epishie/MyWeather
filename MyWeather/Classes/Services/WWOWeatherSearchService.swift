@@ -44,7 +44,6 @@ class WWOWeatherSearchService: WeatherSearchService {
                 self.lastWeather = weather
             case .Failure:
                 completionHandler(nil, WeatherSearchError.NetworkError)
-                self.lastWeather = nil
             }
         }
     }

@@ -18,7 +18,7 @@ class WeatherDetailUseCase {
     
     func getAvailableWeatherDetail() {
         guard let weather = weatherSearchService.lastWeather else {
-            // Do nothing
+            output?.weatherDetailIsNotAvailable(WeatherSearchError.SearchError)
             return
         }
         output?.weatherDetailIsAvailale(weather)
@@ -29,6 +29,7 @@ class WeatherDetailUseCase {
             [unowned self = self]
             (weather, error) in
             guard let weather = weather else {
+                self.output?.weatherDetailIsNotAvailable(error!)
                 return
             }
             
@@ -40,4 +41,5 @@ class WeatherDetailUseCase {
 protocol WeatherDetailUseCaseOutput: class {
     
     func weatherDetailIsAvailale(weather: Weather)
+    func weatherDetailIsNotAvailable(error: WeatherSearchError)
 }

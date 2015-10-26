@@ -66,8 +66,15 @@ class WeatherDetailViewController: UITableViewController {
 extension WeatherDetailViewController: WeatherDetailView {
     
     func showWeather(weather: (String, NSData?, String, Int, String)) {
+        self.refreshControl?.endRefreshing()
         self.weather = weather
         tableView.reloadData()
+    }
+    
+    func showErrorMessage(message: String) {
         self.refreshControl?.endRefreshing()
+        let alertController = UIAlertController(title: NSLocalizedString("MyWeather", comment: ""), message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("Dismiss", comment: ""), style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
 }
