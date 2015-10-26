@@ -11,6 +11,7 @@ import UIKit
 class WeatherSearchViewController: UITableViewController {
     var eventHandler: WeatherSearchViewEventHandler!
     var searchController: UISearchController?
+    var activityIndicator: UIActivityIndicatorView!
     var history: [String]?
     
     override func viewDidLoad() {
@@ -24,6 +25,15 @@ class WeatherSearchViewController: UITableViewController {
         searchController?.searchBar.delegate = self
         tableView.tableHeaderView = searchController?.searchBar
         tableView.tableFooterView = UIView() // Work-around to hide separators on empty cells
+        
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        activityIndicator.center = tableView.center
+        activityIndicator.hidesWhenStopped = true
+        tableView.addSubview(activityIndicator)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        activityIndicator.stopAnimating()
     }
 
     // MARK: - Table view data source
@@ -63,6 +73,7 @@ class WeatherSearchViewController: UITableViewController {
         let search = history?[indexPath.row]
         eventHandler.onSearchForWeather(search!)
         searchController?.active = false
+        activityIndicator.startAnimating()
     }
 }
 
@@ -86,6 +97,7 @@ extension WeatherSearchViewController: UISearchBarDelegate {
         // Perform search
         eventHandler.onSearchForWeather(searchBar.text!)
         searchController?.active = false
+        activityIndicator.startAnimating()
     }
 }
 
